@@ -28,24 +28,40 @@ function render(variables = {}) {
   // if includeCover==false then we reset the cover code without the <img> tag to make the cover transparent.
   let cover = `<div class="cover"><img src="${variables.background}" /></div>`;
   if (variables.includeCover == false) cover = "<div class='cover'></div>";
-
+  let vars = variables;
+  for (var key in vars) {
+    if (
+      !vars[key] &&
+      key != "instagram" &&
+      key != "twitter" &&
+      key != "linkedin" &&
+      key != "github"
+    ) {
+      vars[key] = "Enter " + key;
+    }
+  }
   // reset the website body with the new html output
   document.querySelector("#widget_content").innerHTML = `<div class="widget">
             ${cover}
-          <img src="${variables.avatarURL}" class="photo" />
-          <h1>Lucy Boilett</h1>
-          <h2>Web Developer</h2>
-          <h3>Miami, USA</h3>
-          <ul class="position-right">
-            <li><a href="https://twitter.com/4geeksacademy"><i class="fab fa-twitter"></i></a></li>
-            <li><a href="https://github.com/4geeksacademy"><i class="fab fa-github"></i></a></li>
-            <li><a href="https://linkedin.com/4geeksacademy"><i class="fab fa-linkedin"></i></a></li>
-            <li><a href="https://instagram.com/4geeksacademy"><i class="fab fa-instagram"></i></a></li>
+          <img src="${vars.avatarURL}" class="photo" />
+          <h1>${vars.name}</h1>
+          <h2>${vars.role}</h2>
+          <h3>${vars.city}, ${vars.country}</h3>
+          <ul class="${vars.socialMediaPosition}">
+            <li><a href="https://twitter.com/${vars.twitter}"><i class="fab fa-twitter"></i></a></li>
+            <li><a href="https://github.com/${vars.github}"><i class="fab fa-github"></i></a></li>
+            <li><a href="https://linkedin.com/${vars.linkedin}"><i class="fab fa-linkedin"></i></a></li>
+            <li><a href="https://instagram.com/${vars.instagram}"><i class="fab fa-instagram"></i></a></li>
           </ul>
         </div>
     `;
 }
-
+{
+  /* <li><a href="https://twitter.com/4geeksacademy"><i class="fab fa-twitter"></i></a>${vars.twitter}</li>
+            <li><a href="https://github.com/4geeksacademy"><i class="fab fa-github"></i></a>${vars.github}</li>
+            <li><a href="https://linkedin.com/4geeksacademy"><i class="fab fa-linkedin"></i></a>${vars.linkedin}</li>
+            <li><a href="https://instagram.com/4geeksacademy"><i class="fab fa-instagram"></i></a>${vars.instagram}</li> */
+}
 /**
  * Don't change any of the lines below, here is where we do the logic for the dropdowns
  */
